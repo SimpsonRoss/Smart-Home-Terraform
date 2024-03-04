@@ -12,3 +12,17 @@ module "security_groups" {
   vpc_id = module.vpc.vpc_id
   my_ip = var.my_ip
 }
+
+module "dynamodb_lighting" {
+  source = "./modules/database"
+  table_name = "Lighting"
+  hash_key = "id"
+  hash_key_type = "N"
+}
+
+module "dynamodb_heating" {
+  source = "./modules/database"
+  table_name = "Heating"
+  hash_key = "id"
+  hash_key_type = "N"
+}
