@@ -26,3 +26,11 @@ module "dynamodb_heating" {
   hash_key = "id"
   hash_key_type = "N"
 }
+
+module "ec2_instances" {
+  source = "./modules/servers"
+  public_subnet_ids = module.vpc.public_subnet_ids
+  private_subnet_id = module.vpc.private_subnet_ids[0]
+  security_group_ids = module.security_groups.security_group_ids
+  ami_id = var.ami_id
+}

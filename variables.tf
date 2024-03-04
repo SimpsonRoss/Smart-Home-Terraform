@@ -27,3 +27,8 @@ variable "my_ip" {
   description = "My IP address"
   type        = string
 }
+
+variable "ami_id" {
+  description = "The AMI ID to be used for the instances"
+  type        = string
+}
