@@ -1,3 +1,5 @@
+# Lighting EC2 instance on public subnet
+
 resource "aws_instance" "lighting"  {
   ami = var.ami_id
   instance_type = var.instance_type
@@ -8,6 +10,10 @@ resource "aws_instance" "lighting"  {
     Name = "Lighting"
   }
 }
+
+# ------------------------------------------------------------
+
+# Heating EC2 instance on public subnet
 
 resource "aws_instance" "heating"  {
   ami = var.ami_id
@@ -20,6 +26,10 @@ resource "aws_instance" "heating"  {
   }
 }
 
+# ------------------------------------------------------------
+
+# Status EC2 instance on public subnet
+
 resource "aws_instance" "status"  {
   ami = var.ami_id
   instance_type = var.instance_type
@@ -31,6 +41,10 @@ resource "aws_instance" "status"  {
   }
 }
 
+# ------------------------------------------------------------
+
+# Auth EC2 instance on private subnet
+
 resource "aws_instance" "auth" {
   ami = var.ami_id
   instance_type = var.instance_type
@@ -40,3 +54,5 @@ resource "aws_instance" "auth" {
     Name = "Auth"
   }
 }
+
+# ------------------------------------------------------------
