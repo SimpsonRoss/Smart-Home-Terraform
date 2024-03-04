@@ -21,4 +21,5 @@ variable "private_subnet_cidrs" {
 variable "availability_zones" {
   description = "The availability zones in which the VPC will be created"
   type        = list(string)
+  
 }
