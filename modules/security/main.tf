@@ -2,7 +2,6 @@
 
 resource "aws_security_group" "allow_http" {
   name        = "Main_allow_http"
-  description = "Allow HTTP and custom port inbound traffic"
   vpc_id      = var.vpc_id
   egress {
     from_port         = 0
@@ -27,15 +26,15 @@ resource "aws_security_group_rule" "allow_http" {
 
 # HTTP Custom Port Rule
 
-# resource "aws_security_group_rule" "allow_custom_port" {
-#   type              = "ingress"
-#   from_port         = 3000
-#   to_port           = 3000
-#   protocol          = "tcp"
-#   cidr_blocks       = ["0.0.0.0/0"]
-#   ipv6_cidr_blocks  = ["::/0"]
-#   security_group_id = aws_security_group.allow_http.id
-# }
+resource "aws_security_group_rule" "allow_custom_port" {
+  type              = "ingress"
+  from_port         = 3000
+  to_port           = 3000
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+  security_group_id = aws_security_group.allow_http.id
+}
 
 # ------------------------------------------------------------
 
@@ -43,7 +42,6 @@ resource "aws_security_group_rule" "allow_http" {
 
 resource "aws_security_group" "allow_https" {
   name        = "Main_allow_https"
-  description = "Allow HTTPS inbound traffic"
   vpc_id      = var.vpc_id
   egress {
     from_port         = 0
@@ -72,7 +70,6 @@ resource "aws_security_group_rule" "allow_https" {
 
 resource "aws_security_group" "allow_ssh" {
   name        = "Main_allow_ssh"
-  description = "Allow SSH inbound traffic from my IP"
   vpc_id      = var.vpc_id
   egress {
     from_port         = 0
@@ -83,7 +80,7 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
-# SSH Rule
+# SSH Rule from my IP
 
 resource "aws_security_group_rule" "allow_ssh" {
   type              = "ingress"
@@ -94,4 +91,42 @@ resource "aws_security_group_rule" "allow_ssh" {
   security_group_id = aws_security_group.allow_ssh.id
 }
 
+# SSH Rule from inside VPC
+
+resource "aws_security_group_rule" "allow_ssh_within_vpc" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["10.0.0.0/16"] 
+  security_group_id = aws_security_group.allow_ssh.id
+}
+
+
 # ------------------------------------------------------------
+
+# # Bastion host security group
+
+# resource "aws_security_group" "bastion_host_sg" {
+#   name        = "bastion_sg"
+#   description = "Security Group for Bastion Host"
+#   vpc_id      = var.vpc_id
+
+#   ingress {
+#     from_port   = 22
+#     to_port     = 22
+#     protocol    = "tcp"
+#     cidr_blocks = [var.my_ip]
+#   }
+
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+
+#   tags = {
+#     Name = "BastionSG"
+#   }
+# }
