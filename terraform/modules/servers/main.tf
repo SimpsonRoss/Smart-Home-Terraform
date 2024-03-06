@@ -20,7 +20,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "lighting"  {
   # ami = var.ami_id
-  ami = data.aws_ami.ubuntu.id
+  ami = "ami-0ee9d687eab0ed726"
   instance_type = var.instance_type
   subnet_id = element(var.public_subnet_ids, 0)
   vpc_security_group_ids = var.security_group_ids
@@ -52,7 +52,7 @@ resource "aws_instance" "lighting"  {
 
 resource "aws_instance" "heating"  {
   # ami = var.ami_id
-  ami = data.aws_ami.ubuntu.id
+  ami = "ami-082d40138a106ff58"
   instance_type = var.instance_type
   subnet_id = element(var.public_subnet_ids, 1)
   vpc_security_group_ids = var.security_group_ids
@@ -68,7 +68,7 @@ resource "aws_instance" "heating"  {
 
 resource "aws_instance" "status"  {
   # ami = var.ami_id
-  ami = data.aws_ami.ubuntu.id
+  ami = "ami-0981bccc7ae95d796"
   instance_type = var.instance_type
   subnet_id = element(var.public_subnet_ids, 2)
   vpc_security_group_ids = var.security_group_ids
@@ -83,8 +83,7 @@ resource "aws_instance" "status"  {
 # Auth EC2 instance on private subnet
 
 resource "aws_instance" "auth" {
-  # ami = var.ami_id
-  ami = data.aws_ami.ubuntu.id
+  ami = "ami-0b2a4711206951c46"
   instance_type = var.instance_type
   subnet_id = var.private_subnet_id
   vpc_security_group_ids = var.security_group_ids
