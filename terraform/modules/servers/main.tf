@@ -25,21 +25,6 @@ resource "aws_instance" "lighting"  {
   subnet_id = element(var.public_subnet_ids, 0)
   vpc_security_group_ids = var.security_group_ids
   key_name = "MyKeyPair4"
-
-  # user_data = <<-EOF
-  #           #!/bin/bash
-  #           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-  #           export NVM_DIR="$HOME/.nvm"
-  #           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  #           [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  #           nvm install --lts
-  #           npm install pm2@latest -g
-  #           cd ce-project-lights
-  #           npm install
-  #           touch .env
-  #           pm2 start npm -- run start
-  #           EOF
-
   tags = {
     Name = "Lighting"
   }
@@ -94,16 +79,3 @@ resource "aws_instance" "auth" {
 }
 
 # ------------------------------------------------------------
-
-# # Bastion Host
-
-# resource "aws_instance" "bastion_host" {
-#   ami                    = data.aws_ami.ubuntu.id
-#   instance_type          = "t2.micro"
-#   subnet_id              = element(var.public_subnet_ids, 0) 
-#   vpc_security_group_ids = [var.bastion_security_group_id]
-#   key_name               = "MyKeyPair4"
-#   tags = {
-#     Name = "BastionHost"
-#   }
-# }

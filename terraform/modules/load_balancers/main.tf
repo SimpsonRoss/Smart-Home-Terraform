@@ -57,7 +57,7 @@ resource "aws_lb_listener_rule" "public_rule" {
 
   condition {
     path_pattern {
-      values = ["/${each.key}*"]
+      values = ["/api/${each.key}*"]
     }
   }
 }
