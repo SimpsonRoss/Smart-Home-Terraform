@@ -1,5 +1,4 @@
 data "aws_ami" "ubuntu" {
-  // Gets the latest ubuntu AMI ID
   most_recent = true
 
   filter {
@@ -12,7 +11,7 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["099720109477"] # Canonical's ID - creators of the Ubuntu AMI
+  owners = ["099720109477"] 
 }
 
 
@@ -36,7 +35,6 @@ resource "aws_instance" "lighting"  {
 # Heating EC2 instance on public subnet
 
 resource "aws_instance" "heating"  {
-  # ami = var.ami_id
   ami = "ami-082d40138a106ff58"
   instance_type = var.instance_type
   subnet_id = element(var.public_subnet_ids, 1)
@@ -52,7 +50,6 @@ resource "aws_instance" "heating"  {
 # Status EC2 instance on public subnet
 
 resource "aws_instance" "status"  {
-  # ami = var.ami_id
   ami = "ami-0981bccc7ae95d796"
   instance_type = var.instance_type
   subnet_id = element(var.public_subnet_ids, 2)

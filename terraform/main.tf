@@ -66,3 +66,13 @@ module "load_balancers" {
   auth_instance_id               = module.ec2_instances.auth_instance_id
 }
 
+module "autoscaling" {
+  source = "./modules/auto_scaling"
+  security_group_ids = module.security_groups.security_group_ids
+  public_subnet_ids = module.vpc.public_subnet_ids
+  private_subnet_ids = module.vpc.private_subnet_ids
+  lighting_tg_arn = module.load_balancers.lighting_tg_arn
+  heating_tg_arn = module.load_balancers.heating_tg_arn
+  status_tg_arn = module.load_balancers.status_tg_arn
+  auth_tg_arn = module.load_balancers.auth_tg_arn
+}
