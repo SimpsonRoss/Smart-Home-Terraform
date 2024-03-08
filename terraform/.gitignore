@@ -4,3 +4,4 @@
 *.tfvars
 *.tfstate
 *.tfstate.backup
+MyKeyPair4.pem
