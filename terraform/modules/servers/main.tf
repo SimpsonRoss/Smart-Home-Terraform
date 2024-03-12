@@ -18,7 +18,6 @@ data "aws_ami" "ubuntu" {
 # Lighting EC2 instance on public subnet
 
 resource "aws_instance" "lighting"  {
-  # ami = var.ami_id
   ami = "ami-0ee9d687eab0ed726"
   instance_type = var.instance_type
   subnet_id = element(var.public_subnet_ids, 0)
@@ -27,7 +26,6 @@ resource "aws_instance" "lighting"  {
   tags = {
     Name = "Lighting"
   }
-
 }
 
 # ------------------------------------------------------------
@@ -65,7 +63,8 @@ resource "aws_instance" "status"  {
 # Auth EC2 instance on private subnet
 
 resource "aws_instance" "auth" {
-  ami = "ami-0b2a4711206951c46"
+  # ami = "ami-0b2a4711206951c46" commenting out until I make an AMI utilising dynamodb
+  ami = var.ami_id
   instance_type = var.instance_type
   subnet_id = var.private_subnet_id
   vpc_security_group_ids = var.security_group_ids

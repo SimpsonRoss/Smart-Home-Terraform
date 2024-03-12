@@ -31,15 +31,15 @@ variable "auth_tg_arn" {
 
   variable "min_size"  {
     type = number
-    default = 1
+    default = 0
   }     
 
   variable "max_size" {
     type = number
-    default = 3
+    default = 0
   }     
 
   variable "desired_capacity" {
     type = number
-    default = 2
+    default = 0
   }

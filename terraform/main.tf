@@ -27,6 +27,13 @@ module "dynamodb_heating" {
   hash_key_type = "N"
 }
 
+module "dynamodb_auth" {
+  source = "./modules/database"
+  table_name = "AuthUsers"
+  hash_key = "username"
+  hash_key_type = "S"
+}
+
 module "ec2_instances" {
   source = "./modules/servers"
   public_subnet_ids = module.vpc.public_subnet_ids
